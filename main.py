@@ -23,25 +23,28 @@ class MainGrid(GridLayout):
 
         self.title = Label(
             text="Welcome to Nordiken Scriblen!\n" +
-            "An App that allows you to convert English sentences to Nordic Accent English.",
-            font_size=40
+            "An App that allows you to convert English sentences to Nordic Accent English.\n" +
+            "The results are random and may differ slightly, so try to convert\n" +
+            "the same texts multiple times.\n\n" +
+            "Enter normal English on the left and the Nordic English will appear so the right.\n" +
+            "Have Fun!",
+            font_size=40,
+            halign="center"
         )
         self.add_widget(self.title)
 
         self.eng_input = TextInput(
-            text="Enter normal english here..."
+            text="Markiplier is the best YouTuber!. I looooove to watch his videos!"
         )
         self.middle_grid.add_widget(self.eng_input)
 
-        self.nord_output = TextInput(
-            text="Nord Accent text will appear here..."
-        )
+        self.nord_output = TextInput()
         self.middle_grid.add_widget(self.nord_output)
         self.add_widget(self.middle_grid)
 
         self.convert_btn = Button(
             text="NØRDÎFŸ!",
-            font_size=70
+            font_size=100
         )
         self.convert_btn.bind(on_press=self.convert)
         self.add_widget(self.convert_btn)
@@ -55,15 +58,35 @@ class MainGrid(GridLayout):
         for word in words:
             for letter in word:
                 vowel = vowels[randint(0, 4)]
+                capital = False
 
-                if letter in vowels:
-                    if randint(0, 100) < 50:
-                        if letter == "y":
+                if letter.isupper():
+                    capital = True
+                    letter = letter.lower()
+
+                if randint(0, 100) < 20 and letter in vowels:
+                    if capital:
+                        sen += vowel.upper()
+                    elif letter == "y" and randint(0, 20) < 12:
+                        if capital:
+                            sen += "Ee"
+                        else:
                             sen += "ee"
+                    elif letter == "u" and randint(0, 20) < 12:
+                        if capital:
+                            sen += "Oo"
+                        else:
+                            sen += "oo"
+                    else:
+                        if capital:
+                            sen += vowel.upper()
                         else:
                             sen += vowel
                 else:
-                    sen += letter
+                    if capital:
+                        sen += letter.upper()
+                    else:
+                        sen += letter
 
             sen += " "
 
