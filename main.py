@@ -1,3 +1,4 @@
+from random import randint
 from kivy.app import App
 from kivy.uix.label import Label
 from kivy.uix.gridlayout import GridLayout
@@ -42,7 +43,31 @@ class MainGrid(GridLayout):
             text="NØRDÎFŸ!",
             font_size=70
         )
+        self.convert_btn.bind(on_press=self.convert)
         self.add_widget(self.convert_btn)
+
+    def convert(self, instance):
+        text = self.eng_input.text
+        words = text.split(" ")
+        vowels = "aeiou"
+        sen = ""
+
+        for word in words:
+            for letter in word:
+                vowel = vowels[randint(0, 4)]
+
+                if letter in vowels:
+                    if randint(0, 100) < 50:
+                        if letter == "y":
+                            sen += "ee"
+                        else:
+                            sen += vowel
+                else:
+                    sen += letter
+
+            sen += " "
+
+        self.nord_output.text = sen
 
 
 class NordScrib(App):
