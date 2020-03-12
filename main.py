@@ -34,11 +34,12 @@ class MainGrid(GridLayout):
         self.add_widget(self.title)
 
         self.eng_input = TextInput(
-            text="Markiplier is the best YouTuber!. I looooove to watch his videos!"
+            text="Markiplier is the best YouTuber!. I looooove to watch his videos!",
+            font_size=38
         )
         self.middle_grid.add_widget(self.eng_input)
 
-        self.nord_output = TextInput()
+        self.nord_output = TextInput(font_size=38)
         self.middle_grid.add_widget(self.nord_output)
         self.add_widget(self.middle_grid)
 
@@ -59,12 +60,13 @@ class MainGrid(GridLayout):
             for letter in word:
                 vowel = vowels[randint(0, 4)]
                 capital = False
+                chance = 50
 
                 if letter.isupper():
                     capital = True
                     letter = letter.lower()
 
-                if randint(0, 100) < 20 and letter in vowels:
+                if randint(0, 100) < chance and letter in vowels:
                     if capital:
                         sen += vowel.upper()
                     elif letter == "y" and randint(0, 20) < 12:
@@ -82,6 +84,12 @@ class MainGrid(GridLayout):
                             sen += vowel.upper()
                         else:
                             sen += vowel
+
+                elif letter == "s":
+                    if capital:
+                        sen += "Zz"
+                    else:
+                        sen += "zz"
                 else:
                     if capital:
                         sen += letter.upper()
